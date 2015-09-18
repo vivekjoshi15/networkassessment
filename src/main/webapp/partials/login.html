@@ -1,0 +1,61 @@
+  <div id="page-wrapper">
+            <div class="container">
+                <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="pagetitle"><msg key="login"></h1>
+                    <div class="row">
+                        <div class="col-md-12 language">
+                        <label>Language :</label>
+                        <select class="select_box form-control">
+                            <option><a ng-class="(language() == 'en')?'btn-primary':''"
+                            ng-click="setLanguage('en')">English</a></option>
+                            <!-- <option><a ng-class="(language() == 'ja')?'btn-primary':''"
+                            ng-click="setLanguage('ja')">日本語</a></option> -->
+                        </select>
+                       </div>
+                   </div>
+                </div>
+               
+            </div>
+             <!-- /language section -->
+            
+            <div class="row" ng-controller="LoginController">
+                <div class="col-md-8">
+                    <div id="login" class="box-padded">
+                        <h3><msg key="ciscoAppLogin"></msg> <img src="img/Help.png" alt="" class="icoHelp"  popover="CISCO APP LOGIN"  popover-trigger="click" /></h3>
+                        <form role="form" class="buttons">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">User Name:</label>
+                                <input class="form-control" placeholder="User ID" name="email" type="text" ng-model="username" autofocus required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Password:</label>
+                                <input class="form-control" ng-model="password" placeholder="Password" name="password" type="password" value="" required="required">
+                            </div>
+                            <button type="button" ng-click="login()" class="btn btn-blue-flat bold-text">
+                                <msg key="login"></msg>
+                            </button>
+                            <button type="button" ng-click="register()" class="btn btn-blue-flat bold-text">
+                                <msg key="register"></msg>
+                            </button>
+                        </form>
+                       <div class="clearfix">&nbsp;</div>
+                        <!-- <a href="#/signup" class="pr20"><msg key="ciscoAppSignup"></msg> </a>-->
+                        <a href="#/forgot">Forgot your user ID and/or Password?</a>
+                        <div class="clearfix">&nbsp;</div> 
+                        <alert ng-show="isError" type="danger">{{errorMsg}}</alert>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <aside id="register">
+                        <div class="box-padded">
+                          <h3>Network Assessment Application</h3>
+                          <p>This application connects to your existing APIC-EM to discover netwok devices within specified IP range specified in the hosted application. Where the user would get an opportunity to replace existing network devices intelligently based  on criteria specified in the application.</p>
+                          <p>(This is a sample text only)</p>
+                        </div>
+                      </aside>
+                </div>
+            </div>
+            
+            </div>
+        </div>

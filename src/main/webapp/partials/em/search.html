@@ -1,0 +1,118 @@
+<div class="breadcrumb_box">
+	<div class="btn-group btn-breadcrumb">
+		<a ng-click="logout()" class="btn btn-primary" style="cursor: default;"><i
+			class="glyphicon glyphicon-home"></i></a> <a ng-href="#/apicemlogin"
+			class="btn btn-primary">Onbaord APIC-EM</a> <a ng-href="#/devices"
+			class="btn btn-info">Inventory</a>
+	</div>
+</div>
+
+<div class="page-header">
+	<h1>
+		<msg key="deviceInventoryDetails" />
+	</h1>
+</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<!-- <div class="pull-right">
+			<Strong><msg key="date" /></Strong>: {{currentDate | date:'medium'}}
+		</div> -->
+		<msg key="deviceInventoryDetails" />
+		<div class="pull-right">
+		<a class="btn btn-success btn-xs" ng-click="manageExcel()"><span
+				class="glyphicon glyphicon-file"></span> <msg key="manageexcel" /></a>
+				<a class="btn btn-success btn-xs" ng-click="saveToExcel()"><span
+				class="glyphicon glyphicon-file"></span> <msg key="savetoexcel" /></a>
+			<a class="btn btn-success btn-xs" ng-click="exportToExcel()"><span
+				class="glyphicon glyphicon-file"></span> <msg key="exporttoexcel" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="DEVICE INVENTORY DETAIL"  popover-trigger="click" />
+		</div>
+	</div>
+	<form class="form form-inline">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="details_inventory_search">
+					<div class="col-md-5">
+						<label><msg key="selectDevices" /> : </label> <select
+							class="form-control" style="width: 70%; display: inline;"
+							ng-model="deviceCategory" ng-change="deviceCategroryChange()">
+							<option value="all" class="divider">All Devices
+								(Including Unknown Devices)</option>
+							<option value="Cisco">Cisco Devices</option>
+							<option value="ROUTER">Routers</option>
+							<option value="SWITCH">Switches</option>
+							<option value="WIRELESS">Wireless</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" ng-model="q" style="width: 275.81818175315857px;"
+								placeholder="Search for devices..."/>
+						<label class="glyphicon glyphicon-search"></label>
+					</div>
+
+					<div class="col-md-3 pull-right">
+						<label><msg key="itemsPerPage" /> : </label> <select
+							class="form-control" style="width: 40%; display: inline;"
+							ng-model="itemsPerPage">
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="30">30</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+							<option value="{{devices.length}}">All</option>
+						</select>
+					</div>
+				</div>
+				<div class="clearfix" style="margin-bottom: 10px;">&nbsp;</div>
+				<div class="table-responsive" id="deviceTable">
+					<table class="table table-striped table-condensed table-hover">
+						<tbody>
+							<tr class="info" style="border: thin solid black;  font-weight: bold;">
+								<td ng-click="orderBy('platformId')" width="20%" title="click to sort"><msg
+										key="platformId" /><span ng-class="orderIcon('platformId')" /></td>
+								<td ng-click="orderBy('qty')" width="8%" title="click to sort"><msg key="qty" /><span
+									ng-class="orderIcon('qty')" /></td>
+								<td ng-click="orderBy('softwareVersion')" width="20%" title="click to sort"><msg
+										key="version" /><span ng-class="orderIcon('softwareVersion')" /></td>
+								<td ng-click="orderBy('tags')" width="20%" title="click to sort"><msg key="tags" /><span
+									ng-class="orderIcon('tags')" /></td>
+								<td ng-click="orderBy('locationName')" width="30%" title="click to sort"><msg
+										key="location" /><span ng-class="orderIcon('locationName')" /></td>
+								<td width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></td>
+							</tr>
+							<tr
+								dir-paginate="device in devices | filter:q | orderBy:order | itemsPerPage: itemsPerPage ">
+								<td>{{device.platformId}}</td>
+								<!-- <td>{{device.description}}</td> -->
+								<td>{{device.qty}}</td>
+								<td>{{device.softwareVersion}}</td>
+								<td title="{{device.tags}}">{{device.tags | limitTo: 20 }}
+									{{device.tags.length < 20 ? '' : '...' }}</td>
+								<td title="{{device.locationName}}">{{device.locationName |
+									limitTo: 20 }} {{device.locationName.length < 20 ? '' : '...'}}</td>
+								<td ng-show="{{device.qty > 1}}"><a
+									class="btn btn-primary btn-md"
+									ng-href='#/device/{{device.type}}/{{device.platformId | urlEncode }}'><msg
+											key="details" /> </a></td>
+								<td ng-show="{{device.qty <= 1}}"><button
+										class="btn btn-default btn-md" disabled>
+										<msg key="details" />
+									</button></td>
+							</tr>
+							<tr ng-if="devices && devices.length === 0">
+								<td colspan="6" align="center" style="color: RED"><b><msg
+											key="noDeviceFound" />.</b></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="6" class="text-center"><dir-pagination-controls
+										class="ng-isolate-scope" /></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

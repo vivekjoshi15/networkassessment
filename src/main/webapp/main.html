@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="apicemApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="ico/favicon.ico">
+
+<title>APIC EM - Network Assessment</title>
+
+<!-- Bootstrap core CSS -->
+<link href="webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<!-- Font awesome CSS -->
+<link href="webjars/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet" media="screen">
+<!-- Custom styles for this template -->
+<link href="css/main.css" rel="stylesheet">
+
+<link rel="stylesheet"
+	href="webjars/ng-tags-input/2.3.0/ng-tags-input.min.css">
+<link rel="stylesheet"
+	href="webjars/ng-tags-input/2.3.0/ng-tags-input.bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+<link rel="stylesheet" href="css/select.css">
+<link href="webjars/angular-xeditable/0.1.9/css/xeditable.css"
+	rel="stylesheet">
+
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+                      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                    <![endif]-->
+
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.select2>.select2-choice.ui-select-match {
+	/* Because of the inclusion of Bootstrap */
+	height: 29px;
+}
+
+.selectize-control>.selectize-dropdown {
+	top: 36px;
+}
+</style>
+</head>
+
+<body ng-controller="MainController">
+	<!-- Fixed navbar -->
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 logo">
+					<h1>
+						<a href="#/apicemlogin" style="text-decoration:none;"><img src="img/logo.png" alt="" border="0" /> &nbsp; <span style="color:#fff;">APIC-EM
+							Network Assesment Application (Beta)</span></a>
+					</h1>
+				</div>
+				<div class="col-md-5 guest-actions" ng-hide="user == null || user == undefined">
+					<ul class="nav navbar-nav navbar-right">
+						<li style="color:#fff"><strong>Welcome <a href="#/userdetail"  style="color:#fff;line-height: 20px;padding-left: 5px;">{{ user.username }}</a></strong></li>
+						<li><a ng-click="logout()"><msg key="logout"></msg></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container page">
+		<div ng-class="'alert alert-' + message().type"
+			ng-show="message().show">
+			<button type="button" class="close" ng-click="message().show = false">×</button>
+			{{message().text}}
+		</div>
+		<ng-view></ng-view>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<footer>
+				<a target="_blank" href="mailto:mail@yourdomain.com"><div
+						class="feedbackImageCss"></div>Beta Version Feedback</a> <a
+					target="_blank" href="http://www.cisco.com/web/help/index.html">User
+					Guide</a> <a target="_blank"
+					href="http://www.cisco.com/web/siteassets/legal/terms_condition.html">Terms
+					&amp; Conditions</a> <a target="_blank"
+					href="http://www.cisco.com/web/siteassets/legal/privacy.html">Privacy
+					Statement</a> <a target="_blank"
+					href="http://www.cisco.com/web/siteassets/legal/privacy.html#cookies">Cookie
+					Policy </a> <a target="_blank"
+					href="http://www.cisco.com/web/siteassets/legal/trademark.html">Trademarks</a>
+			</footer>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="webjars/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-route.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-resource.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-cookies.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-messages.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-animate.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-aria.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angularjs/1.3.14/angular-touch.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/smart-table/2.0.3/smart-table.js"></script>
+	<script type="text/javascript"
+		src="webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angular-filter/0.4.9/angular-filter.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angular-ui-utils/0.2.2/ui-utils.min.js"></script>
+	<script type="text/javascript"
+		src="webjars/angular-utils-pagination/0.7.0/dirPagination.js"></script>
+	<script type="text/javascript"
+		src="webjars/ng-tags-input/2.3.0/ng-tags-input.min.js"></script>
+
+	<script src="http://alasql.org/console/alasql.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.min.js"></script>
+
+	<script src="webjars/angular-xeditable/0.1.9/js/xeditable.js"></script>
+
+	<script type="text/javascript"
+		src="http://sheetjs.com/demos/FileSaver.js"></script>
+	<script type="text/javascript" src="http://sheetjs.com/demos/Blob.js"></script>
+	<script type="text/javascript"
+		src="http://sheetjs.com/demos/Export2Excel.js"></script>
+
+
+	<script type="text/javascript" src="js/controller.js"></script>
+	<script type="text/javascript" src="js/filter.js"></script>
+	<script type="text/javascript" src="js/i18n.js"></script>
+	<script type="text/javascript" src="js/base64.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+	<script src="js/select.js"></script>
+    <script type="text/javascript" src="js/LoginLibrary.js"></script>
+    <script type="text/javascript" src="js/logService.js"></script>
+
+</body>
+
+</html>
+

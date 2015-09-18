@@ -1,0 +1,64 @@
+{  
+   "questions":[  
+     
+      {  
+         "name":"Redundant Power Supply",
+         "id":"redundantPowerSupply",
+         "deviceType":"ROUTER",
+         "checked":false,
+         "question":"Redundant power supply",
+         "options":[],
+         "selectedOtion":"",
+         "type":"checkbox"
+      },
+       {  
+         "name":"Integrated Switch",
+         "id":"ports",
+         "deviceType":"ROUTER",
+         "checked":false,
+         "question":"Integrated switch",
+         "options":["24","48"],
+         "selectedOtion":"",
+         "type":"checkbox"
+      },
+       {  
+          "name":"Host Application",
+         "id":"hostApplication",
+         "deviceType":"ROUTER",
+         "checked":false,
+         "question":"Host applications",
+         "options":["UCS-E180D-M2","UCS-E160D-M2/K9","UCS-E140S-M2/k9"],
+          "selectedOtion":"",
+         "type":"checkbox"
+      }, 
+       {  
+          "name":"Secure WAN",
+         "id":"secureWAN",
+         "deviceType":"ROUTER",
+          "checked":false,
+         "question":"Secure WAN",
+          "options":[],
+          "selectedOtion":"",
+         "type":"checkbox"
+      },
+        {  
+         "name":"Intelligent WAN",
+         "id":"intelligantWAN",
+         "deviceType":"ROUTER",
+        "checked":false,
+         "question":"Intelligent WAN solutions",
+       "options":[],
+       "selectedOtion":"",
+         "type":"checkbox"
+      },
+       {  
+         "name":"Cisco Unified Communication",
+         "id":"ciscoUnifiedCommns",
+         "deviceType":"ROUTER",
+         "checked":false,
+         "question":"Cisco Unified Communications Solutions",
+         "selectedOtion":"",
+         "type":"checkbox"
+      }
+   ]
+}
