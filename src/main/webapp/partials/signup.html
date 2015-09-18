@@ -21,31 +21,46 @@
                 <div class="row" ng-controller="SignUpController">
                     <div class="col-md-8">
                         <div id="login" class="box-padded">
-                        	<img src="img/Help.png" alt="" class="icoHelp"  popover="CISCO APP Register"  popover-trigger="click" />
-                            <h3><msg key="register"></h3>
-                            <form role="form" name="userForm" class="buttons" novalidate>                               
+                            <h3><msg key="register"/> &nbsp;&nbsp;<img  src="img/Help.png" alt="" class="icoHelp"  popover="CISCO APP Register"  popover-trigger="click" />
+                            </h3>
+                            
+                            <form role="form" name="userForm" class="buttons form-horizontal" novalidate>                               
                                 <div class="form-group" ng-class="{ 'error': userForm.username.$invalid }">
-                                    <label for="recipient-name" class="control-label">User Name:</label>
-                                    <input class="form-control" placeholder="User Name" name="username" type="text" ng-model="username" required="required">
+                                    <label for="recipient-name" class="control-label col-sm-2">User Name:</label>
+                                    <div class="col-sm-10">
+                                    	<input class="form-control" placeholder="User Name" name="username" type="text" ng-model="username" required="required">
+                               		 </div>
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.email.$invalid}">
-                                    <label for="recipient-name" class="control-label">User Email:</label>
-                                    <input class="form-control" placeholder="User email" name="email" type="email" ng-model="email" required="required">
+                                    <label for="recipient-name" class="control-label col-sm-2">User Email:</label>
+                                     <div class="col-sm-10">
+                                    	<input class="form-control" placeholder="User email" name="email" type="email" ng-model="email" required="required">
+                               		</div>
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.password.$invalid}">
-                                    <label for="message-text" class="control-label">Password:</label>
-                                    <input class="form-control" ng-model="password" placeholder="Password" name="password" ng-minlength="3" type="password" value="" required="required">
+                                    <label for="message-text" class="control-label col-sm-2">Password:</label>
+                                    <div class="col-sm-10">
+                                    	<input class="form-control" ng-model="password" placeholder="Password" name="password" ng-minlength="3" type="password" value="" required="required">
+                               		</div>
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.confirm_password.$invalid || password != confirm_password}">
-                                    <label for="message-text" class="control-label">Confirm Password:</label>
-                                    <input class="form-control" ng-model="confirm_password" placeholder="Confirm Password" ng-minlength="3" name="confirm_password" type="password" value="" required="required">
+                                    <label for="message-text" class="control-label col-sm-2">Confirm Password:</label>
+                                     <div class="col-sm-10">
+                                    	<input class="form-control" ng-model="confirm_password" placeholder="Confirm Password" ng-minlength="3" name="confirm_password" type="password" value="" required="required">
+                                	</div>
                                 </div>
-                                <button type="button" ng-click="signUp()" class="btn btn-blue-flat bold-text">
-                                    <msg key="signUp"></msg>
-                                </button>
-                                <button type="button" ng-click="login()" class="btn btn-blue-flat bold-text">
-                                    <msg key="backToLogin"></msg>
-                                </button>
+                                <div class="form-group">
+                                	<div class="col-sm-2"></div>
+                                	<div class="col-sm-10">
+	                                	<button type="button" ng-click="signUp()" class="btn btn-blue-flat bold-text">
+	                                    <msg key="signUp"></msg>
+	                               		 </button>
+		                                <button type="button" ng-click="login()" class="btn btn-blue-flat bold-text">
+		                                    <msg key="backToLogin"></msg>
+		                                </button>
+	                                </div>
+                                </div>
+                                
                             	<div class="clearfix">&nbsp;</div>
                             	
                         		<alert ng-show="isError" type="danger">{{errorMsg}}</alert>                        

@@ -61,15 +61,15 @@ body {
 	<header>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7 logo">
+				<div class="col-md-9 logo">
 					<h1>
-						<a href="#/apicemlogin" style="text-decoration:none;"><img src="img/logo.png" alt="" border="0" /> &nbsp; <span style="color:#fff;">APIC-EM
+						<a href="#/apicemlogin" style="text-decoration:none;"><img src="img/logo.png" alt="" border="0" /> &nbsp; <span style="color:#3f3f3f;">APIC-EM
 							Network Assesment Application (Beta)</span></a>
 					</h1>
 				</div>
-				<div class="col-md-5 guest-actions" ng-hide="user == null || user == undefined">
+				<div class="col-md-3 guest-actions" ng-hide="user == null || user == undefined">
 					<ul class="nav navbar-nav navbar-right">
-						<li style="color:#fff"><strong>Welcome <a href="#/userdetail"  style="color:#fff;line-height: 20px;padding-left: 5px;">{{ user.username }}</a></strong></li>
+						<li><span>Welcome, <a href="#/userdetail"  style="line-height: 20px;padding-left: 5px;">{{ user.username }}</a></span></li>
 						<li><a ng-click="logout()"><msg key="logout"></msg></a></li>
 					</ul>
 				</div>

@@ -40,10 +40,10 @@
 </script>
 
 <div class="breadcrumb_box">
-	<div class="btn-group btn-breadcrumb">
-		<a ng-click="logout()" class="btn btn-primary" style="cursor: default;"><i
-			class="glyphicon glyphicon-home"></i></a> <a ng-href="#/apicemlogin"
-			class="btn btn-info">Onbaord APIC-EM</a>
+	<div class="btn-group btn-breadcrumb2">
+		<!-- <a ng-click="logout()" class="btn btn-primary" style="cursor: default;"><i
+			class="glyphicon glyphicon-home"></i></a>  -->
+			<a ng-href="#/apicemlogin" class="btn btn-info">Onbaord APIC-EM</a>
 	</div>
 </div>
 
@@ -51,10 +51,10 @@
 	style="margin-top: 20px;">
 
 	<div class="row">
-		<div class="col-md-5 col-md-offset-4">
+		<div class="col-md-5"> <!--  col-md-offset-4 -->
 
 			<div class="panel panel-info">
-				<div class="panel-heading">
+				<div class="panel-heading notbdr notbg">
 					<h3 class="panel-title">
 						<msg key="connectToApicem"></msg>
 						<img popover-trigger="click" popover-placement="bottom" popover-template="temp.connect" class="icoHelp" alt="" src="img/Help.png">
@@ -196,15 +196,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading panel-heading1">
+					<div class="panel-heading panel-heading1 notplr">
 						<h3 class="panel-title">
 							<msg key="previouslyOnboarded"></msg>
 							<img popover-trigger="click" popover-template="temp.preOnboard" class="icoHelp" alt="" src="img/Help.png">
 						</h3>
 					</div>
-					<div class="panel-body dataTables_wrapper">
+					<div class="panel-body dataTables_wrapper notplr">
 
 						<!-- <div class="col-md-12">
 							<div class="input-group col-md-12">
@@ -260,7 +260,7 @@
 												cancel</button>
 										</form>
 										<div class="buttons" ng-show="!rowform.$visible">
-											<button class="btn btn-primary" ng-click="rowform.$show()">Edit</button>
+											<button class="btn btn-primary bg-grey" ng-click="rowform.$show()">Edit</button>
 											<button class="btn btn-green-flat bold-text" ng-click="deleteApicemIP(item.id,$index)">Delete</button>
 										</div>
 									</td>
