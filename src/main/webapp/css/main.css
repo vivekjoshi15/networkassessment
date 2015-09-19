@@ -17,6 +17,9 @@ a{
 .page{
     min-height: 400px;
 }
+.tcolor{
+	color:#4f4f4f;
+}
 .page-header h1{color:#325D98; font-weight:600; text-transform:uppercase; font-size:25px;}
 header{
   display: block;
@@ -57,13 +60,27 @@ footer a:visited{text-decoration:none;}
 .toolbar{
     margin:10px;
 }
+.white{
+	color:#fff;
+}
+.white:hover{
+	color:#fff;
+}
 
 .question{
 	border :0px solid darkgray;
 	padding: 10 px;
 	margin-bottom :10px
 }
-
+.pr10{
+	padding-right:10px;
+}
+.mr10{
+	margin-right:10px;
+}
+.table.border-thead-none > thead > tr > th{
+	border:0 none;
+}
 .answer{
 	border :0px solid lightgray;
 	padding: 5 px;
@@ -175,11 +192,33 @@ tags-input input::-moz-placeholder{
 tags-input input::-webkit-input-placeholder{
   color: #fff;
 }
-
+.searchTop{
+    bottom: 0;
+    left: 22px;
+    position: absolute;
+    top: 12px;
+}
+.pl22{
+	padding-left: 22px;
+}
+.icon-close{
+	width: 36px;
+	position: absolute;
+    right: -2px;
+    top: -3px;
+    width: 34px;
+    cursor: pointer;
+	
+}
+.btn-skyblue{
+	background:#049fd8;
+}
 .noborder{border:0;}
 .page-header{margin:20px 0 20px;}
 .breadcrumb{margin-top:20px; margin-bottom:0; border-radius:0px; background-color:#E3E3E3;}
-
+.notbdr-child > *{
+	border:0 none !important;
+}
 
 
 /** The Magic **/
@@ -291,10 +330,33 @@ tags-input input::-webkit-input-placeholder{
  	background-color:#666666;
  	border-color: #4a4a4a
  }
+ .btn-breadcrumb2 a{
+ 	background: url("../img/icon-arrow-right.png") no-repeat scroll right center / 16px auto;
+    font-size: 15px;
+    padding-right: 18px;
+    color: #4f4f4f;
+ }
   .bg-grey:hover{
  	background-color:#4a4a4a;
  	border-color: #4a4a4a
  }
+ .stitle {
+    color: #484848;
+}
+.normal label{
+	font-weight: normal;
+}
+.brder-right a msg{
+	border-right: 1px solid #4f4f4f;
+	padding: 0 5px;
+}
+.brder-right a{
+	padding: 0;
+}
+.brder-right a:last-child msg{
+	border-right: 0 none;
+	padding: 0;
+}
 .divider {
   height: 1px;
   width:100%;
@@ -305,7 +367,9 @@ tags-input input::-webkit-input-placeholder{
 }
   
 /*button*/
-
+.btn-border{
+	border:1px solid #ccc;
+}
 .buttons button.btn-blue-gradient {
   padding: 9px 34px 11px;
   margin-right: 8px;

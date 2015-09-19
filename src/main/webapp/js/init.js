@@ -47,6 +47,9 @@
                 .when('/apicemlogin',
                 		 {controller: 'ApicEMLoginController',
             		 templateUrl: 'partials/em/apicem-login.html'})
+            	.when('/apicemnew',
+                		 {controller: 'ApicEMLoginController',
+            		 templateUrl: 'partials/em/apicem-new.html'})	 
                 .when('/device/:type/:platformId*',
                         {controller: 'ReplaceCtrl',
                 		 templateUrl: 'partials/em/replace.html'})   

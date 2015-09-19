@@ -322,7 +322,9 @@
 		$scope.allApicEms = [];
 		$scope.isError=false;
 		$scope.isError2=false;
-		
+
+		$("#scroll-new").height(50);
+		console.log('*_*_*_');
 		$scope.temp= {
 					connect : "connectToApicTemp.html",
 					onboard : "onboardApicTemp.html",
