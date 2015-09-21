@@ -68,10 +68,19 @@
 							<label class="control-label col-md-3" for="apicemIp"><msg
 									key="apicemIP"></msg></label>
 							<div class="col-md-8">
-								<select class="form-control" ng-model="selectedApicem"
+							<div class="selection"
+                                     select-tabs items='allApicEms'
+                                     itemobj
+                                     itemval="apicemIP"
+                                     itemdisp="apicemIP"
+                                     selected='selectedApicem'
+                                     itemplaceholder="APIC EM Version" ></div>
+                               
+                                     
+								<!-- <select class="form-control" ng-model="selectedApicem"
 									id="apicemIp" name="apicemIp"
 									ng-options="item.apicemIP as item.apicemIP for item in allApicEms">
-								</select>
+								</select> -->
 
 								<!-- <ui-select ng-model="selectedApicem" theme="select2" ng-disabled="disabled" style="min-width: 300px;">
 						    <u	i-select-match placeholder="Select a APIC EM...">{{$select.selected.apicemIP}}</ui-select-match>

@@ -5,13 +5,23 @@
                     <h1 class="pagetitle"><msg key="register"></h1>
                     <div class="row">
                     	<div class="col-md-12 language">
-                    	<label>Language :</label>
+                    	<label class="col-md-1 notplr mt7">Language :</label>
+                        <div class="col-md-4">
+                        <div class="selection"
+                                     select-tabs items='[{text:"English"}]'
+                                     itemobj
+                                     itemval="text"
+                                     itemdisp="text"
+                                     selected='setLanguage'
+                                     itemplaceholder="Select Type" selectedobj></div>
+                            </div>
+                    	<!-- <label>Language :</label>
                         <select class="select_box form-control">
                         	<option><a ng-class="(language() == 'en')?'btn-primary':''"
 							ng-click="setLanguage('en')">English</a></option>
-							<!-- <option><a ng-class="(language() == 'ja')?'btn-primary':''"
-							ng-click="setLanguage('ja')">日本語</a></option> -->
-                        </select>
+							<option><a ng-class="(language() == 'ja')?'btn-primary':''"
+							ng-click="setLanguage('ja')">日本語</a></option>
+                        </select> -->
                        </div>
                    </div>
                 </div>
@@ -55,7 +65,7 @@
 	                                	<button type="button" ng-click="signUp()" class="btn btn-blue-flat bold-text">
 	                                    <msg key="signUp"></msg>
 	                               		 </button>
-		                                <button type="button" ng-click="login()" class="btn btn-blue-flat bold-text">
+		                                <button type="button" ng-click="login()" class="btn btn-border bold-text">
 		                                    <msg key="backToLogin"></msg>
 		                                </button>
 	                                </div>

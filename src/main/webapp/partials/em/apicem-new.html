@@ -142,10 +142,18 @@
 								<label class="control-label col-md-3" for="apicemType"><msg
 										key="apicemType"></msg></label>
 								<div class="col-md-7">
-									<select class="form-control" ng-model="onboardType"
+									<div class="selection"
+                                     select-tabs items='onBoardTypelist'
+                                     itemobj
+                                     itemval="id"
+                                     itemdisp="name"
+                                     selected='onboardType'
+                                     itemplaceholder="Select Type" selectedobj></div>
+                                     
+									<!-- <select class="form-control" ng-model="onboardType"
 										id="onboardType" name="onboardType"
 										ng-options="item.name for item in onBoardTypelist" ng-init="onboardType = onBoardTypelist[0]">
-									</select>
+									</select> -->
 								 </div>
 							</div>
 
@@ -169,12 +177,20 @@
 								<label class="control-label col-md-3" for="Version"><msg
 										key="version"></msg></label>
 								<div class="col-md-7">
-									<select class="form-control" id="version" name="version"
+									<div class="selection"
+                                     select-tabs items='versions'
+                                     itemobj
+                                     itemval="id"
+                                     itemdisp="text"
+                                     selected='newApicVersion'
+                                     itemplaceholder="APIC EM Version" selectedobj></div>
+                                     
+									<!-- <select ng-model="newApicVersion" data-placeholder="APIC EM Version" class="form-control" id="version" name="version"
 										ng-model="newApicVersion" placeholder="APIC EM Version"
 										required>
 										<option value="v0">V0</option>
 										<option value="v1">V1</option>
-									</select>
+									</select> -->
 									<!-- 	<span class="error" ng-show="onboardForm.version.$dirty && onboardForm.version.$invalid">Select Version</span> -->
 								</div>
 							</div>
@@ -222,12 +238,12 @@
 									<th style="width: 30%" ng-click="orderBy('apicemIP')"
 										ng-class="orderIcon('apicemIP')">IP Address</th>
 									<th style="width: 15%" ng-click="orderBy('apicemType')"
-										ng-class="orderIcon('apicemIP')">Type</th>
-									<th style="width: 15%" ng-click="orderBy('version')"
+										ng-class="orderIcon('apicemType')">Type</th>
+									<th style="width: 20%" ng-click="orderBy('version')"
 										ng-class="orderIcon('version')"><msg key="version" /></th>
-									<th style="width: 15%" ng-click="orderBy('location')"
+									<th style="width: 20%" ng-click="orderBy('location')"
 										ng-class="orderIcon('location')">Location</th>
-									<th style="width: 25%"><!-- Edit --></th>
+									<th style="width: 15%"><!-- Edit --></th>
 								</tr>
 							</thead>
 							<tbody id="scroll-new">

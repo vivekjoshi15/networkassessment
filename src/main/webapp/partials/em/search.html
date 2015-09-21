@@ -36,7 +36,8 @@
 			<div class="col-md-12">
 				<div class="details_inventory_search">
 					<div class="col-md-5">
-						<label><msg key="selectDevices" /> : </label> <select
+						<label class="col-sm-4 mt7"><msg key="selectDevices" /> : </label>
+						 <!-- <select
 							class="form-control" style="width: 70%; display: inline;"
 							ng-model="deviceCategory" ng-change="deviceCategroryChange()">
 							<option value="all" class="divider">All Devices
@@ -45,7 +46,15 @@
 							<option value="ROUTER">Routers</option>
 							<option value="SWITCH">Switches</option>
 							<option value="WIRELESS">Wireless</option>
-						</select>
+						</select> -->
+						<div class="col-sm-8  notplr">
+					  		<div class="selection" 
+                                     select-tabs items='devicesTypes'
+                                     itemobj
+                                     itemval="value"
+                                     itemdisp="text"
+                                     selected='deviceCategory'
+                                     itemplaceholder="Select Devices" ></div> </div>
 					</div>
 					<div class="col-md-3">
 						<input type="text" class="form-control pl22" ng-model="q" style="width: 275.81818175315857px;"
@@ -57,7 +66,21 @@
 					</div>
 
 					<div class="col-md-3 pull-right">
-						<label><msg key="itemsPerPage" /> : </label> <select
+						
+						
+						<div class="col-md-5 pull-right notpr">
+							<div class="selection" ng-init="{'text':all}"
+                                     select-tabs items="itemPerPages"
+                                     itemobj
+                                     itemval="val"
+                                     itemdisp="text"
+                                     selected='itemsPerPage'
+                                      >
+                                   </div>
+                         </div>
+                         <label class="pull-right mt7"><msg key="itemsPerPage" /> : </label>
+						
+						 <!-- <select
 							class="form-control" style="width: 40%; display: inline;"
 							ng-model="itemsPerPage">
 							<option value="5">5</option>
@@ -67,7 +90,7 @@
 							<option value="50">50</option>
 							<option value="100">100</option>
 							<option value="{{devices.length}}">All</option>
-						</select>
+						</select> -->
 					</div>
 				</div>
 				<div class="clearfix" style="margin-bottom: 10px;">&nbsp;</div>
@@ -77,7 +100,7 @@
 							<tr class="notbdr notbdr-child">
 								<th ng-click="orderBy('platformId')" width="20%" title="click to sort"><msg
 										key="platformId" /><span ng-class="orderIcon('platformId')" /></th>
-								<th ng-click="orderBy('qty')" width="8%" title="click to sort"><msg key="qty" /><span
+								<th ng-click="orderBy('qty')" width="20%" title="click to sort"><msg key="qty" /><span
 									ng-class="orderIcon('qty')" /></th>
 								<th ng-click="orderBy('softwareVersion')" width="20%" title="click to sort"><msg
 										key="version" /><span ng-class="orderIcon('softwareVersion')" /></th>
@@ -85,7 +108,7 @@
 									ng-class="orderIcon('tags')" /></th>
 								<th ng-click="orderBy('locationName')" width="30%" title="click to sort"><msg
 										key="location" /><span ng-class="orderIcon('locationName')" /></th>
-								<th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th>
+								<!-- <th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -99,14 +122,14 @@
 									{{device.tags.length < 20 ? '' : '...' }}</td>
 								<td title="{{device.locationName}}">{{device.locationName |
 									limitTo: 20 }} {{device.locationName.length < 20 ? '' : '...'}}</td>
-								<td ng-show="{{device.qty > 1}}"><a
+								<!-- <td ng-show="{{device.qty > 1}}"><a
 									class="btn btn-primary btn-md"
 									ng-href='#/device/{{device.type}}/{{device.platformId | urlEncode }}'><msg
 											key="details" /> </a></td>
 								<td ng-show="{{device.qty <= 1}}"><button
 										class="btn btn-default btn-md" disabled>
 										<msg key="details" />
-									</button></td>
+									</button></td> -->
 							</tr>
 							<tr ng-if="devices && devices.length === 0">
 								<td colspan="6" align="center" style="color: RED"><b><msg

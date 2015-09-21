@@ -1,5 +1,5 @@
 (function() {
-	var as = angular.module('apicemApp.controllers', [ 'smart-table', 'ui.utils', 'ui.select', 'xeditable','ngMessages','ui.bootstrap' ]);
+	var as = angular.module('apicemApp.controllers', [ 'smart-table', 'ui.utils', 'ui.select', 'xeditable','ngMessages','ui.bootstrap','ui.select2' ]);
 	
 	var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
 
@@ -335,7 +335,7 @@
 		                          { name:'APIC-EM IP',  type : 'IP',id :1},
 		                          { name:'APIC-EM DNS', type : 'DNS',id:2 } 
 		                         ];
-		//$scope.onboardType= { name:'APIC-EM IP' ,type : 'IP',id :1};
+		$scope.onboardType= { name:'APIC-EM IP' ,type : 'IP',id :1};
 		
 		$scope.versions = [ {
 			value : 'v0',
@@ -344,18 +344,18 @@
 			value : 'v1',
 			text : 'V1'
 		} ];
+		
 
 		load = function() {
 			log.info("Loading apicem");
 			$scope.allApicEms = [];
 			$http.get('api/apicem').success(function(data) {
 				angular.forEach(data, function(apicEm) {
-					//console.log(apicEm);
 					$scope.allApicEms.push(apicEm);
 					$scope.selectedApicem = apicEm.apicemIP;
 				});
-
 			});
+			
 		}
 
 		load();
@@ -553,6 +553,20 @@
 		$scope.itemsPerPage = "10";
 		$scope.groupBy = 'groupBy_deviceType';
 		var groupType = $scope.groupBy;
+		$scope.devicesTypes =[
+		                      {"text":'All Devices(Including Unknown Devices)',value:'all'},
+		                      {"text":'Cisco Devices',value:'Cisco'},
+		                      {"text":'Routers',value:'ROUTER'},
+		                      {"text":'Switches',value:'SWITCH'},
+		                      {"text":'Wireless',value:'WIRELESS'}
+		                     ];
+		$scope.itemPerPages = [
+		                       {'text':5, val:5},
+		                       {'text':10, val:10},
+		                       {'text':20, val:20},
+		                       {'text':30, val:30},
+		                       {'text':50, val:50}
+		                      ]
 
 		$http.defaults.headers.common['X-Access-Token'] = $window.sessionStorage.getItem('token');
 		$http.defaults.headers.common['apicem'] = $window.sessionStorage.getItem('apicem');
@@ -566,6 +580,8 @@
 				DeviceData.setDeviceData(data);
 				$window.sessionStorage['devices'] = JSON.stringify(data);
 				$scope.devices = groupByData(data, groupType);
+				$scope.itemPerPages.push({'text':'All', val:data.length});
+				$scope.itemInitPerPage={'text':'All', val:data.length};
 				// }
 			});
 		}
@@ -582,11 +598,13 @@
 		$scope.groupByChange = function() {
 			$scope.devices = groupByData(DeviceData.getDeviceData(), groupType);
 			$scope.deviceCategory = 'all';
+			
 		}
 
 		$scope.deviceCategroryChange = function() {
 			if ($scope.deviceCategory == 'all') {
 				$scope.devices = groupByData(DeviceData.getDeviceData(), groupType);
+				
 			} else {
 				$scope.filterDevices = [];
 				angular.forEach(DeviceData.getDeviceData(), function(device) {
@@ -616,6 +634,11 @@
 			return property === $scope.order.substring(1) ? $scope.order[0] === '+' ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down' : '';
 		};
 		
+
+		$scope.$watch('deviceCategory',function(newVal,oldVal){
+			if(newVal == undefined)
+			deviceCategroryChange();
+		});
 		$scope.exportToExcel = function() {
 		    $http({method: 'POST', url: "api/discovery/export",
 		        responseType: "arraybuffer",data :DeviceData.getDeviceData()}).     
@@ -1097,5 +1120,162 @@
 		}
 
 	});
+	
+	as.directive('selectTabs', function ($document, $compile) {
+
+	    return {
+	        restrict: 'A',
+	        scope: {
+	            items: '=',
+	            selected: '=',
+	            itemplaceholder: '@',
+	            itemval: '@',
+	            itemdisp: '@',
+	            recordChanged: '&',
+	            isactive: '=',
+	            activeclass: '=',
+	            acticemessage:'='
+	        },
+	        link: function (scope, elem, attr, ctrl) {
+	            scope.hasObj = true;
+	            var template = '';
+	            scope.isSimpleArray = false;//(scope.items instanceof Array && !(scope.items[0] instanceof Object));
+	            if (attr['selectedobj'] == undefined) {
+	                scope.hasObj = false;
+	            }
+	           
+	            var tNoMatchText = attr["nomatchtext"] ? attr["nomatchtext"] : "Item not found";
+	            var search_filter = attr["searchfilter"] ? attr["searchfilter"] : '$';
+	            scope.filterStatus = attr["searchfilter"] ? true : false;
+	            var searchplaceholder = attr.searchplaceholder  ? attr["searchplaceholder"] : attr["itemplaceholder"] ? scope.itemplaceholder.replace(/Select/gi, "Search") : "Search Item"  ;
+
+	            if (scope.isSimpleArray) {
+	                template = '<input type="text"  value="{{items[idx]}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                	'<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
+	                	'<ul ng-show="isPopupVisible">' +
+	                    '<li ng-repeat="item in filtered = (items | filter:search)" ng-click="setTab(item)">{{item}}</li>' +
+	                    '<li ng-show="filtered.length == 0">' + tNoMatchText + '</li>' +
+	                    '</ul>';
+	            } else {
+	                if (scope.hasObj)
+	                {
+	                    template = '<input type="text" ng-class="{activeclass: isactive2,up:isPopupVisible }" value="{{selected.' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                    '<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
+	                    '<ul ng-show="isPopupVisible">' +
+	                    '<li class="search-filter" ng-click="searchfn" ng-show="filterStatus"> <input type="text" class="search-icon" ng-model="search.' + search_filter + '"></li>' +
+	                    '<li ng-repeat="item in filtered = (items | filter:search)" ng-click="setTab(item)">{{item.' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}} </li>' +
+	                    '<li ng-show="filtered.length == 0">' + tNoMatchText + '</li>' +
+	                    '</ul>';
+	                 }
+	                else{
+	                    template = '<input type="text" ng-class="{ invalidRequired : isactive2,up:isPopupVisible }" value="{{items[idx].' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                            '<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
+	                    		'<ul ng-show="isPopupVisible">' +
+	                             '<li class="search-filter" ng-click="searchfn" ng-show="filterStatus"> <input type="text" class="search-icon" ng-model="search.' + search_filter + '" placeholder="' + searchplaceholder + '"></li>' +
+	                            '<li ng-repeat="item in filtered = (items | filter:search)" ng-click="setTab(item)">{{item.' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}} </li>' +
+	                            '<li ng-show="filtered.length == 0">' + tNoMatchText + '</li>' +
+	                            '</ul>';
+	                    }
+	                
+	            }
+	              elem.append($compile(template)(scope));
+	              var openPopup = false;
+	              scope.$watch('isactive', function (newValue, oldValue) {
+	                  if (newValue == undefined)
+	                      return
+
+	                  if (newValue == true && scope.selected != undefined) {
+	                      if (scope.selected.length != 0) {
+	                          scope.isactive2 = false;
+	                      }
+	                      else {
+	                          scope.itemplaceholder = scope.acticemessage;
+	                          scope.isactive2 = true;
+	                      }
+	                  }
+	                  else {
+	                      scope.itemplaceholder = scope.acticemessage;
+	                      scope.isactive2 = true;
+	                  }
+	              });
+
+	              scope.$watch('selected', function (newValue, oldValue) {
+	                  scope.isactive2 = false;
+	                if (scope.items) {
+	                    if (scope.isSimpleArray) {
+	                        for (var i = 0; i < scope.items.length; i++) {
+	                            if (scope.items[i] == newValue) {
+	                                scope.idx = i;
+	                            }
+	                        }
+	                    }
+	                    else if (scope.items instanceof Array) {
+	                        for (var i = 0; i < scope.items.length; i++) {
+	                            if (scope.items[i][attr.itemval] == newValue) {
+	                                scope.idx = i;
+	                            }
+	                        }
+	                    } else {
+	                        scope.setTab(scope.items[newValue]);
+	                    }
+	                }
+	            });
+
+	            scope.setTab = function (item) {
+	                var oldVal = scope.selected;
+	                if (scope.isSimpleArray) {
+	                    for (var i = 0; i < scope.items.length; i++) {
+	                        if (scope.items[i] == item) {
+	                            scope.idx = i;
+	                            scope.selected = item;
+	                        }
+	                    }
+	                }
+	                else if (scope.items instanceof Array) {
+	                    for (var i = 0; i < scope.items.length; i++) {
+	                        if (scope.items[i][attr.itemval] == item[attr.itemval]) {
+	                            scope.idx = i;                        
+	                            if (scope.hasObj) {
+	                                scope.selected = item;
+	                            }
+	                            else
+	                            {
+	                                scope.selected = item[attr.itemval];
+	                            }
+	                                
+	                            
+	                        }
+	                    }
+	                } else {
+	                    scope.idx = scope.selected = item[attr.itemval];
+	                }
+	                if (oldVal !== undefined && oldVal != scope.selected) {
+	                    scope.recordChanged({ value: scope.selected, parent: scope.$parent });
+	                }
+	                scope.isPopupVisible = false;
+	            };
+	            scope.togglePopup = function() {
+	                scope.isPopupVisible = !scope.isPopupVisible;
+	                openPopup = scope.isPopupVisible;
+	            }
+	            scope.searchfn= function()
+	            {
+	                scope.isPopupVisible = true;
+	            }
+	            $document.bind('click', function (e) {
+	                if (!(angular.element(e.target).hasClass("search-filter") || angular.element(e.target).parent().hasClass("search-filter"))) {
+	                    if (!openPopup) {
+	                        scope.isPopupVisible = false;
+	                        scope.$apply();
+	                    } else {
+	                        openPopup = false;
+	                    }
+	                }
+
+	            });
+	        }
+
+	      };
+	  });
 
 }());
