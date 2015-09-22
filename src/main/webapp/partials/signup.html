@@ -2,18 +2,19 @@
         	<div class="container">
             	<div class="row">
                 <div class="col-lg-12">
-                    <h1 class="pagetitle"><msg key="register"></h1>
+                   <!--  <h1 class="pagetitle"><msg key="register"></h1> -->
                     <div class="row">
-                    	<div class="col-md-12 language">
-                    	<label class="col-md-1 notplr mt7">Language :</label>
-                        <div class="col-md-4">
-                        <div class="selection"
-                                     select-tabs items='[{text:"English"}]'
+                    	<div class="col-md-8 language">
+                    	<label class="col-md-2 notplr mt7">Language :</label>
+                        <div class="col-md-8 set-lang">
+                        <div class="selection" ng-init="setLanguage ={text:'English',val:'en'}"
+                                     select-tabs items="[{text:'English'}]"
                                      itemobj
-                                     itemval="text"
+                                     onselectedchange="setLanguage()"
+                                     itemval="val"
                                      itemdisp="text"
                                      selected='setLanguage'
-                                     itemplaceholder="Select Type" selectedobj></div>
+                                     itemplaceholder="Select language" selectedobj></div>
                             </div>
                     	<!-- <label>Language :</label>
                         <select class="select_box form-control">

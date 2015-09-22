@@ -36,7 +36,7 @@
 			<div class="col-md-12">
 				<div class="details_inventory_search">
 					<div class="col-md-5">
-						<label class="col-sm-4 mt7"><msg key="selectDevices" /> : </label>
+						<label class="col-sm-4 mt7 notplr"><msg key="selectDevices" /> : </label>
 						 <!-- <select
 							class="form-control" style="width: 70%; display: inline;"
 							ng-model="deviceCategory" ng-change="deviceCategroryChange()">
@@ -50,26 +50,26 @@
 						<div class="col-sm-8  notplr">
 					  		<div class="selection" 
                                      select-tabs items='devicesTypes'
+                                     onselectedchange="deviceCategroryChange()"
                                      itemobj
                                      itemval="value"
                                      itemdisp="text"
                                      selected='deviceCategory'
                                      itemplaceholder="Select Devices" ></div> </div>
 					</div>
-					<div class="col-md-3">
-						<input type="text" class="form-control pl22" ng-model="q" style="width: 275.81818175315857px;"
+					<div class="col-md-3 notplr">
+						<input type="text" class="form-control pl22 mx-100" ng-model="q" style="width: 275.81818175315857px;"
 								placeholder=""/>
 						<label class="glyphicon glyphicon-search searchTop"></label>
 					</div>
 					<div class="col-md-1">
-						 <button class="btn btn-border bold-text">Search</button>
+						 <button class="btn btn-border bold-text ht34">Search</button>
 					</div>
 
 					<div class="col-md-3 pull-right">
 						
-						
 						<div class="col-md-5 pull-right notpr">
-							<div class="selection" ng-init="{'text':all}"
+							<div class="selection" 
                                      select-tabs items="itemPerPages"
                                      itemobj
                                      itemval="val"
@@ -100,7 +100,7 @@
 							<tr class="notbdr notbdr-child">
 								<th ng-click="orderBy('platformId')" width="20%" title="click to sort"><msg
 										key="platformId" /><span ng-class="orderIcon('platformId')" /></th>
-								<th ng-click="orderBy('qty')" width="20%" title="click to sort"><msg key="qty" /><span
+								<th ng-click="orderBy('qty')" width="8%" title="click to sort"><msg key="qty" /><span
 									ng-class="orderIcon('qty')" /></th>
 								<th ng-click="orderBy('softwareVersion')" width="20%" title="click to sort"><msg
 										key="version" /><span ng-class="orderIcon('softwareVersion')" /></th>
@@ -108,7 +108,7 @@
 									ng-class="orderIcon('tags')" /></th>
 								<th ng-click="orderBy('locationName')" width="30%" title="click to sort"><msg
 										key="location" /><span ng-class="orderIcon('locationName')" /></th>
-								<!-- <th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th> -->
+								<th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th> 
 							</tr>
 						</thead>
 						<tbody>
@@ -122,14 +122,14 @@
 									{{device.tags.length < 20 ? '' : '...' }}</td>
 								<td title="{{device.locationName}}">{{device.locationName |
 									limitTo: 20 }} {{device.locationName.length < 20 ? '' : '...'}}</td>
-								<!-- <td ng-show="{{device.qty > 1}}"><a
+								<td ng-show="{{device.qty > 1}}"><a
 									class="btn btn-primary btn-md"
 									ng-href='#/device/{{device.type}}/{{device.platformId | urlEncode }}'><msg
 											key="details" /> </a></td>
 								<td ng-show="{{device.qty <= 1}}"><button
 										class="btn btn-default btn-md" disabled>
 										<msg key="details" />
-									</button></td> -->
+									</button></td> 
 							</tr>
 							<tr ng-if="devices && devices.length === 0">
 								<td colspan="6" align="center" style="color: RED"><b><msg

@@ -634,11 +634,6 @@
 			return property === $scope.order.substring(1) ? $scope.order[0] === '+' ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down' : '';
 		};
 		
-
-		$scope.$watch('deviceCategory',function(newVal,oldVal){
-			if(newVal == undefined)
-			deviceCategroryChange();
-		});
 		$scope.exportToExcel = function() {
 		    $http({method: 'POST', url: "api/discovery/export",
 		        responseType: "arraybuffer",data :DeviceData.getDeviceData()}).     
@@ -759,6 +754,13 @@
 		DeviceData.setCurrentDate($scope.currentDate);
 		$scope.originalData = '';
 		$scope.itemsPerPage = "10";
+		$scope.itemPerPages = [
+		                       {'text':5, val:5},
+		                       {'text':10, val:10},
+		                       {'text':20, val:20},
+		                       {'text':30, val:30},
+		                       {'text':50, val:50}
+		                      ]
 		var groupType = $scope.groupBy;
 		
 		var UserId=0;
@@ -785,6 +787,7 @@
 				DeviceData.setDeviceData(data);
 				$window.sessionStorage['excelFiles'] = JSON.stringify(data);
 				$scope.files = data;
+				$scope.itemPerPages.push({'text':'All', val:data.length});
 				// }
 			});
 		}
@@ -815,7 +818,14 @@
 	as.controller('ReplaceCtrl', function($scope, $http, $routeParams, i18n, $location, DeviceData, $filter, $window) {
 
 		$scope.path = '/' + $routeParams.platformId;
-
+		$scope.itemPerPages = [
+		                       {'text':5, val:5},
+		                       {'text':10, val:10},
+		                       {'text':20, val:20},
+		                       {'text':30, val:30},
+		                       {'text':50, val:50}
+		                      ]
+		
 		$scope.itemsPerPage = "10";
 		$scope.platformId = decodeURIComponent($routeParams.platformId);
 		$window.sessionStorage.setItem('selectedItem', $scope.platformId);
@@ -840,6 +850,7 @@
 				}
 			}, replaceItemData);
 			$scope.devices = replaceItemData;
+			$scope.itemPerPages.push({'text':'All', val:$scope.allDevices.length});
 		}
 
 		load();
@@ -1134,7 +1145,8 @@
 	            recordChanged: '&',
 	            isactive: '=',
 	            activeclass: '=',
-	            acticemessage:'='
+	            acticemessage:'=',
+	            onselectedchange:'&'
 	        },
 	        link: function (scope, elem, attr, ctrl) {
 	            scope.hasObj = true;
@@ -1150,7 +1162,7 @@
 	            var searchplaceholder = attr.searchplaceholder  ? attr["searchplaceholder"] : attr["itemplaceholder"] ? scope.itemplaceholder.replace(/Select/gi, "Search") : "Search Item"  ;
 
 	            if (scope.isSimpleArray) {
-	                template = '<input type="text"  value="{{items[idx]}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                template = '<input type="text"  class="form-control"  value="{{items[idx]}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
 	                	'<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
 	                	'<ul ng-show="isPopupVisible">' +
 	                    '<li ng-repeat="item in filtered = (items | filter:search)" ng-click="setTab(item)">{{item}}</li>' +
@@ -1159,7 +1171,7 @@
 	            } else {
 	                if (scope.hasObj)
 	                {
-	                    template = '<input type="text" ng-class="{activeclass: isactive2,up:isPopupVisible }" value="{{selected.' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                    template = '<input type="text" class="form-control" ng-class="{activeclass: isactive2,up:isPopupVisible }" value="{{selected.' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
 	                    '<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
 	                    '<ul ng-show="isPopupVisible">' +
 	                    '<li class="search-filter" ng-click="searchfn" ng-show="filterStatus"> <input type="text" class="search-icon" ng-model="search.' + search_filter + '"></li>' +
@@ -1168,7 +1180,7 @@
 	                    '</ul>';
 	                 }
 	                else{
-	                    template = '<input type="text" ng-class="{ invalidRequired : isactive2,up:isPopupVisible }" value="{{items[idx].' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
+	                    template = '<input type="text"  class="form-control" ng-class="{ invalidRequired : isactive2,up:isPopupVisible }" value="{{items[idx].' + (attr.itemdisp == undefined ? attr.itemval : attr.itemdisp) + '}}"  ng-click="togglePopup()" placeholder="{{itemplaceholder}}" readonly>' +
 	                            '<span class="drop-down-icon icons-sets" ng-class="{up:isPopupVisible }" ng-click="togglePopup()"></span>'+
 	                    		'<ul ng-show="isPopupVisible">' +
 	                             '<li class="search-filter" ng-click="searchfn" ng-show="filterStatus"> <input type="text" class="search-icon" ng-model="search.' + search_filter + '" placeholder="' + searchplaceholder + '"></li>' +
@@ -1243,7 +1255,7 @@
 	                                scope.selected = item[attr.itemval];
 	                            }
 	                                
-	                            
+	                             
 	                        }
 	                    }
 	                } else {
@@ -1251,6 +1263,10 @@
 	                }
 	                if (oldVal !== undefined && oldVal != scope.selected) {
 	                    scope.recordChanged({ value: scope.selected, parent: scope.$parent });
+	                    if (attr['selectedobj'] == undefined) {
+	                    	scope.onselectedchange();
+	    	            }
+	                    
 	                }
 	                scope.isPopupVisible = false;
 	            };

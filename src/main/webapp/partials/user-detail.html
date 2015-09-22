@@ -2,16 +2,26 @@
         	<div class="container">
             	<div class="row">
                 <div class="col-lg-12">
-                    <h1 class="pagetitle"><msg key="userDetail"></h1>
+                    <!-- <h1 class="pagetitle"><msg key="userDetail"></h1> -->
                     <div class="row">
-                    	<div class="col-md-12 language">
-                    	<label>Language :</label>
-                        <select class="select_box form-control">
+                    	<div class="col-md-8 language">
+                    	<label class="col-md-2 notplr mt7">Language :</label>
+                        <div class="col-md-8 set-lang">
+                        <div class="selection" ng-init="setLanguage ={text:'English',val:'en'}"
+                                     select-tabs items="[{text:'English'}]"
+                                     itemobj
+                                     onselectedchange="setLanguage()"
+                                     itemval="val"
+                                     itemdisp="text"
+                                     selected='setLanguage'
+                                     itemplaceholder="Select language" selectedobj></div>
+                            </div>
+                        <!-- <select class="select_box form-control">
                         	<option><a ng-class="(language() == 'en')?'btn-primary':''"
 							ng-click="setLanguage('en')">English</a></option>
-							<!-- <option><a ng-class="(language() == 'ja')?'btn-primary':''"
-							ng-click="setLanguage('ja')">日本語</a></option> -->
-                        </select>
+							<option><a ng-class="(language() == 'ja')?'btn-primary':''"
+							ng-click="setLanguage('ja')">日本語</a></option>
+                        </select> -->
                        </div>
                    </div>
                 </div>
@@ -21,29 +31,32 @@
                 <div class="row" ng-controller="UserDetailController">
                     <div class="col-md-8">
                         <div id="login" class="box-padded">
-                        	<img src="img/Help.png" alt="" class="icoHelp"  popover="User Details"  popover-trigger="click" />
-                            <h3><msg key="userDetail"></h3>
-                            <form role="form" name="userForm" class="buttons" novalidate>                               
+                            <h3><msg key="userDetail"/> <img src="img/Help.png" alt="" class="icoHelp"  popover="User Details"  popover-trigger="click" /></h3>
+                            <form role="form" name="userForm" class="buttons form-horizontal" novalidate>                               
                                 <div class="form-group" ng-class="{ 'error': userForm.username.$invalid }">
-                                    <label for="recipient-name" class="control-label">User Name:</label>
-                                    <input class="form-control" placeholder="User Name" name="username" type="text" ng-model="model.username" required="required" disabled="disabled">
+                                    <label for="recipient-name" class="control-label col-md-2  mt7">User Name:</label>
+                                    <input class="form-control col-md-8" placeholder="User Name" name="username" type="text" ng-model="model.username" required="required" disabled="disabled">
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.email.$invalid}">
-                                    <label for="recipient-name" class="control-label">User Email:</label>
-                                    <input class="form-control" placeholder="User email" name="email" type="email" ng-model="model.email" required="required">
+                                    <label for="recipient-name" class="control-label col-md-2  mt7">User Email:</label>
+                                    <input class="form-control col-md-8" placeholder="User email" name="email" type="email" ng-model="model.email" required="required">
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.password.$invalid}">
-                                    <label for="message-text" class="control-label">Password:</label>
-                                    <input class="form-control" ng-model="model.password" placeholder="Password" name="password" ng-minlength="3" type="password" value="" required="required">
+                                    <label for="message-text" class="control-label col-md-2  mt7">Password:</label>
+                                    <input class="form-control col-md-8" ng-model="model.password" placeholder="Password" name="password" ng-minlength="3" type="password" value="" required="required">
                                 </div>
                                 <div class="form-group" ng-class="{ 'error': userForm.confirm_password.$invalid || password != confirm_password}">
-                                    <label for="message-text" class="control-label">Confirm Password:</label>
-                                    <input class="form-control" ng-model="model.confirm_password" placeholder="Confirm Password" ng-minlength="3" name="confirm_password" type="password" value="" required="required">
+                                    <label for="message-text" class="control-label col-md-2  mt7">Confirm Password:</label>
+                                    <input class="form-control col-md-8" ng-model="model.confirm_password" placeholder="Confirm Password" ng-minlength="3" name="confirm_password" type="password" value="" required="required">
                                 </div>
-                                <button type="button" ng-click="changeDetails()" class="btn btn-blue-flat bold-text">
-                                    <msg key="changeUserDetail"></msg>
-                                </button>
-                            	<div class="clearfix">&nbsp;</div>
+                                <div class="form-group">
+                                	 <label class="col-md-2"></label>
+                                	 <button type="button" ng-click="changeDetails()" class="btn btn-blue-flat bold-text">
+	                                    <msg key="changeUserDetail"></msg>
+	                                </button>
+                                </div>
+                               
+                            	<!-- <div class="clearfix">&nbsp;</div> -->
                             	
                         		<alert ng-show="isError" type="danger">{{errorMsg}}</alert>                        
                         		<alert ng-show="isSuccess" type="success">{{successMsg}}</alert>

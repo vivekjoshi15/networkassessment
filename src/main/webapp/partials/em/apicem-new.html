@@ -7,7 +7,7 @@
             <p>Are you sure you want delete this?</p>
         </div>
         <div class="modal-footer buttons ">
-            <button class="btn btn-skyblue" ng-click="ok()">OK</button>
+            <button class="btn btn-skyblue" ng-click="ok()">Delete</button>
             <button class="btn btn-border bold-text" ng-click="cancel()">Cancel</button>
         </div>
 </script>
@@ -48,7 +48,7 @@
 			<a ng-href="#" class="notbg">Add New APIC-EM</a>
 	</div>
 </div>
-
+<div id="page-wrapper" >
 <div class="row" ng-controller="ApicEMLoginController"
 	style="margin-top: 20px;">
 
@@ -180,10 +180,10 @@
 									<div class="selection"
                                      select-tabs items='versions'
                                      itemobj
-                                     itemval="id"
+                                     itemval="value"
                                      itemdisp="text"
                                      selected='newApicVersion'
-                                     itemplaceholder="APIC EM Version" selectedobj></div>
+                                     itemplaceholder="APIC EM Version" ></div>
                                      
 									<!-- <select ng-model="newApicVersion" data-placeholder="APIC EM Version" class="form-control" id="version" name="version"
 										ng-model="newApicVersion" placeholder="APIC EM Version"
@@ -273,13 +273,13 @@
 											ng-show="rowform.$visible" class="form-buttons form-inline"
 											shown="inserted == user">
 											<button type="submit" ng-disabled="rowform.$waiting"
-												class="btn bg-grey white mr10">save</button>
+												class="btn bg-grey ht30  white mr10">save</button>
 											<button type="button" ng-disabled="rowform.$waiting"
 												ng-click="rowform.$cancel()" class="btn btn-default">
 												cancel</button>
 										</form>
 										<div class="buttons pr10" ng-show="!rowform.$visible">
-											<button class="btn bg-grey white mr10" ng-click="rowform.$show()">Edit</button>
+											<button class="btn bg-grey white mr10 ht30 " ng-click="rowform.$show()">Edit</button>
 											<button class="btn btn-border bold-text" ng-click="deleteApicemIP(item.id,$index)">Delete</button>
 										</div>
 									</td>
@@ -310,4 +310,5 @@
 <p>Answer: The reason might be that APIC-EM version you have selected is incorrect. Contact your Administrator for the right version of the APIC-EM or for correct user credentials.</p>  -->	
 					
 	</div>
+</div>
 </div>
