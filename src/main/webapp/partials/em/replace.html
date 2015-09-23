@@ -13,15 +13,17 @@
 
 <div class="page-header">
 	<div class="row">
-	<h1> 
+	
 		<div class="col-sm-5">
+		<h1 class="mt7"> 
 		Detailed Inventory details for : <!-- <select class="form-control"
 			style="width: 15%; display: inline;" ng-model="platformId"
 			ng-change="platformIdChange()"
 			ng-options="item.platformId as item.platformId for item in allDevices | unique:'platformId'">
 		</select> -->
-		</div>
 		</h1>
+		</div>
+		
 		<div class="col-sm-4 ">
 			<div class="selection" select-tabs items='allDevices'
                                      onselectedchange="platformIdChange()"
