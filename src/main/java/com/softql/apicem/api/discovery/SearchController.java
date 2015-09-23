@@ -297,9 +297,23 @@ extends BaseRestController {
     	}
     	else
     	{
-    		findUserQuery.addCriteria(Criteria.where("userId").is(id));
+    		Query findUserRoleQuery = new Query();
+    		findUserRoleQuery.addCriteria(Criteria.where("id").is(id));
+    		UserDetails User = mongoTemplate.findOne(findUserRoleQuery, UserDetails.class, "apicUser");
+    		String role=User.getRole();
+    		if(StringUtils.equalsIgnoreCase(role, "admin"))
+    		{
+    			
+    		}
+    		else
+    		{
+    			findUserQuery.addCriteria(Criteria.where("userId").is(id));
+    		}
     	}
 		List<DiscoveryExcelFiles> files = mongoTemplate.find(findUserQuery, DiscoveryExcelFiles.class, "apicExcelFiles");
+		//for (final DiscoveryExcelFiles file : files) {
+		//	file.setUserName("");
+		//}
 		
         return new ResponseEntity(files, HttpStatus.OK);
     }

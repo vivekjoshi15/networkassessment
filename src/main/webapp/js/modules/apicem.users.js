@@ -20,6 +20,13 @@ as.controller('LoginController', function ($scope, $rootScope, $http, base64, $l
         	}).success(function (data) {
         		var data1=JSON.parse(data);
         		$rootScope.user = data1;
+        		if(data1.role=="admin"){
+        			$rootScope.isAdmin = true;
+        		}
+        		else{
+        			$rootScope.isAdmin = false;
+        		}
+        			
                 $window.sessionStorage['user']=JSON.stringify(data1);
                 $rootScope.$broadcast('event:loginConfirmed');	        		 
                 $scope.isError=false;

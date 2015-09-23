@@ -7,19 +7,12 @@
 	</div>
 </div>
 
-<!-- <div class="page-header">
-	<h1>
-		<msg key="deviceInventoryDetails" />
-	</h1>
-</div> -->
 <div class="panel panel-primary" style="margin-top: 20px;">
 	<div class="panel-heading notbg notbdr notplr col-sm-12">
-		<!-- <div class="pull-right">
-			<Strong><msg key="date" /></Strong>: {{currentDate | date:'medium'}}
-		</div> -->
+		
 		<h3 class="panel-title stitle col-sm-6 notplr">
 						<msg key="previouslyOnboarded" class="tcolor"  />
-				&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="DEVICE INVENTORY DETAIL"  popover-trigger="click" />
+				&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="DEVICE INVENTORY DETAIL"  popover-trigger="click" />
 		</h3>
 		
 		<div class="pull-right brder-right">
@@ -28,25 +21,15 @@
 				<a class="btn btn-xs stitle" ng-click="saveToExcel()"><!-- <span
 				class="glyphicon glyphicon-file"></span> --> <msg key="save" /></a>
 			<a class="btn  btn-xs stitle" ng-click="exportToExcel()"><!-- <span
-				class="glyphicon glyphicon-file"></span> --> <msg key="download" /></a>&nbsp;&nbsp;
+				class="glyphicon glyphicon-file"></span> --> <msg key="download" /></a>
 		</div>
 	</div>
 	<form class="form form-inline">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="details_inventory_search">
-					<div class="col-md-5">
-						<label class="col-sm-4 mt7 notplr"><msg key="selectDevices" /> : </label>
-						 <!-- <select
-							class="form-control" style="width: 70%; display: inline;"
-							ng-model="deviceCategory" ng-change="deviceCategroryChange()">
-							<option value="all" class="divider">All Devices
-								(Including Unknown Devices)</option>
-							<option value="Cisco">Cisco Devices</option>
-							<option value="ROUTER">Routers</option>
-							<option value="SWITCH">Switches</option>
-							<option value="WIRELESS">Wireless</option>
-						</select> -->
+					<div class="col-md-5" style="padding-left: 6px;">
+						<label class="col-sm-4 mt7 notplr"><msg key="selectDevices" /></label>						 
 						<div class="col-sm-8  notplr">
 					  		<div class="selection" 
                                      select-tabs items='devicesTypes'
@@ -66,7 +49,7 @@
 						 <button class="btn btn-border bold-text ht34">Search</button>
 					</div>
 
-					<div class="col-md-3 pull-right">
+					<div class="col-md-3 pull-right" style="padding-right: 8px;">
 						
 						<div class="col-md-5 pull-right notpr">
 							<div class="selection" 
@@ -79,23 +62,11 @@
                                    </div>
                          </div>
                          <label class="pull-right mt7"><msg key="itemsPerPage" /> : </label>
-						
-						 <!-- <select
-							class="form-control" style="width: 40%; display: inline;"
-							ng-model="itemsPerPage">
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="20">20</option>
-							<option value="30">30</option>
-							<option value="50">50</option>
-							<option value="100">100</option>
-							<option value="{{devices.length}}">All</option>
-						</select> -->
 					</div>
 				</div>
 				<div class="clearfix" style="margin-bottom: 10px;">&nbsp;</div>
-				<div class="table-responsive" id="deviceTable">
-					<table class="table table-striped table-condensed table-hover">
+				<div class="table-responsive">
+					<table class="table table-striped table-condensed table-hover" id="deviceTable">
 						<thead>
 							<tr class="notbdr notbdr-child">
 								<th ng-click="orderBy('platformId')" width="20%" title="click to sort"><msg
@@ -106,7 +77,7 @@
 										key="version" /><span ng-class="orderIcon('softwareVersion')" /></th>
 								<th ng-click="orderBy('tags')" width="20%" title="click to sort"><msg key="tags" /><span
 									ng-class="orderIcon('tags')" /></th>
-								<th ng-click="orderBy('locationName')" width="30%" title="click to sort"><msg
+								<th ng-click="orderBy('locationName')" width="20%" title="click to sort"><msg
 										key="location" /><span ng-class="orderIcon('locationName')" /></th>
 								<th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th> 
 							</tr>
@@ -123,11 +94,11 @@
 								<td title="{{device.locationName}}">{{device.locationName |
 									limitTo: 20 }} {{device.locationName.length < 20 ? '' : '...'}}</td>
 								<td ng-show="{{device.qty > 1}}"><a
-									class="btn btn-primary btn-md"
+									class="btn bg-grey white mr10 ht30 "
 									ng-href='#/device/{{device.type}}/{{device.platformId | urlEncode }}'><msg
 											key="details" /> </a></td>
 								<td ng-show="{{device.qty <= 1}}"><button
-										class="btn btn-default btn-md" disabled>
+										class="btn btn-default  mr10 ht30" disabled>
 										<msg key="details" />
 									</button></td> 
 							</tr>

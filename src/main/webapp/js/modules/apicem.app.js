@@ -314,6 +314,43 @@
 		 */
 
 	});
+	
+	as.directive("userName", ['$http', function(http) {
+		  return {
+		    template: "{{userName}}",
+		    scope: {
+		      userId: "="
+		    },
+		    link: function(scope) {
+		    	//scope.userName;
+			    var httpHeaders=http.defaults.headers;
+				httpHeaders.common['Authorization'] = 'Basic YWRtaW46dGVzdDEyMw==';
+					
+				var actionUrl = 'api/self/getUser';
+				http.get(actionUrl,{ params: {id: scope.userId}}).success(function(data) {
+					var user = JSON.parse(data);
+					scope.userName=user.username;
+				});	
+		    }
+		  }
+		}]);
+	
+	as.filter('userNameFilter', function($http){
+		return function(UserId){
+		    var userName;
+		    var httpHeaders=$http.defaults.headers;
+			httpHeaders.common['Authorization'] = 'Basic YWRtaW46dGVzdDEyMw==';
+				
+			var actionUrl = 'api/self/getUser';
+			console.log(UserId);
+			$http.get(actionUrl,{ params: {id: parseInt(UserId)}}).success(function(data) {
+				var user = JSON.parse(data);
+				console.log(user.username);
+				userName=user.username;
+			    return userName;
+			});	
+		};
+		});
 
 	as.controller('ApicExcelController', function($scope, $rootScope, $http, i18n, $location, DeviceData, $window, $filter,log) {
 		$scope.currentDate = Date.now();
@@ -330,14 +367,16 @@
 		var groupType = $scope.groupBy;
 		
 		var UserId=0;
+		$scope.role;
 		if($window.sessionStorage['user'] != null)
 		{
 			$rootScope.user =JSON.parse($window.sessionStorage['user']);
 			if($rootScope.user != null){
 				UserId= parseInt($rootScope.user.id);
 			}
+			$scope.role=$rootScope.user.role;
 		}
-
+		
 		$http.defaults.headers.common['X-Access-Token'] = $window.sessionStorage.getItem('token');
 		$http.defaults.headers.common['apicem'] = $window.sessionStorage.getItem('apicem');
 		$http.defaults.headers.common['version'] = $window.sessionStorage.getItem('version');
@@ -347,14 +386,13 @@
 			httpHeaders.common['Authorization'] = 'Basic YWRtaW46dGVzdDEyMw==';
 			
 			$http.get(actionUrl,{ params: {id: UserId}}).success(function(data) {
-				log.info("Loading Excel files for user");
-				//console.log("Data is " + JSON.stringify(data));
+				log.info("Loading Excel files for user");			
+				
 				$scope.originalFileData = data;
 				DeviceData.setDeviceData(data);
 				$window.sessionStorage['excelFiles'] = JSON.stringify(data);
 				$scope.files = data;
 				$scope.itemPerPages.push({'text':'All', val:data.length});
-				// }
 			});
 		}
 		load();	

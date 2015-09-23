@@ -8,19 +8,11 @@
 	</div>
 </div>
 
-<div class="page-header notbdr notpd">
-	<h1>
-		<msg key="excelDetails" />
-	</h1>
-</div>
-<div class="panel panel-primary">
-	<div class="panel-heading notbg notbdr notplr col-sm-12">
-		<!-- <div class="pull-right">
-			<Strong><msg key="date" ></msg></Strong>: {{currentDate | date:'medium'}}
-		</div> -->
+<div class="panel panel-primary" style="margin-top: 20px;">
+	<div class="panel-heading notbg notbdr notplr col-sm-12">		
 		<h3 class="panel-title stitle col-sm-6 notplr">
 						<msg class="tcolor" key="excelDetails"></msg>
-				&nbsp;&nbsp;<img popover-trigger="click" popover="EXCEL FILES DETAIL" class="icoHelp" alt="" src="img/Help.png">
+				&nbsp;<img popover-trigger="click" popover="EXCEL FILES DETAIL" class="icoHelp" alt="" src="img/Help.png">
 		</h3>
 	</div>
 	<!-- <div class="panel-heading">
@@ -54,36 +46,31 @@
                                       >
                                    </div>
                              </div>
-						 <!-- <select
-							class="form-control" style="width: 40%; display: inline;"
-							ng-model="itemsPerPage">
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="20">20</option>
-							<option value="30">30</option>
-							<option value="50">50</option>
-							<option value="100">100</option>
-							<option value="{{devices.length}}">All</option>
-						</select> -->
 					</div>
 				</div>
 				<div class="clearfix" style="margin-bottom: 10px;">&nbsp;</div>
 				<div class="table-responsive" id="deviceTable">
 					<table class="table table-striped table-condensed table-hover">
-						<tbody>
-							<tr class="">
-								<td ng-click="orderBy('filename')" width="30%" title="click to sort"><msg
-										key="efileName" /><span ng-class="orderIcon('filename')" /></td>
-								<td ng-click="orderBy('createdDate')" width="20%" title="click to sort"><msg key="ecreatedDate" /><span
-									ng-class="orderIcon('createdDate')" /></td>								
-								<td width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></td>
-							</tr>
+						<thead>
+								<tr>
+									<th ng-click="orderBy('filename')" width="30%" title="click to sort"><msg
+										key="efileName" /><span ng-class="orderIcon('filename')" ></span></th>
+								<th ng-click="orderBy('createdDate')" width="20%" title="click to sort"><msg key="ecreatedDate" /><span
+									ng-class="orderIcon('createdDate')" /></th>	
+								<th  ng-if="role === 'admin'" ng-click="orderBy('userId')" width="30%" title="click to sort"><msg
+										key="eUserName" /><span ng-class="orderIcon('userId')" ></span></th>							
+								<th width="12%" title="click to sort"><msg key="action" />&nbsp;&nbsp;<img src="img/Help.png" alt="" class="icoHelp"  popover="Click Grid Title to Sort"  popover-trigger="click" style="width:17px;" /></th>
+
+								</tr>
+						</thead>
+						<tbody id="scroll-new">							
 							<tr
 								dir-paginate="file in files | filter:q | orderBy:order | itemsPerPage: itemsPerPage ">
 								<td>{{file.filename}}</td>
-								<td>{{file.createdDate | date:'longDate'}}</td>								
+								<td>{{file.createdDate | date:'longDate'}}</td>	
+								<td  ng-if="role === 'admin'"><span user-name user-id="file.userId"></span></td>								
 								<td><a
-									class="btn btn-primary btn-md"
+									class="btn bg-grey white mr10 ht30"
 									ng-click='exportToExcel(file.id, file.filename)'><msg
 											key="exporttoexcel" /> </a></td>
 							</tr>

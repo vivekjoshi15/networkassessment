@@ -17,6 +17,8 @@ public class DiscoveryExcelFiles implements Serializable {
 
 	private Long userId;
 
+	private String userName;
+
 	private String filename;
     
     private Date createdDate;
@@ -31,8 +33,16 @@ public class DiscoveryExcelFiles implements Serializable {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
 	public String getFilename() {
 		return filename;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public void setFilename(String filename) {
